@@ -58,7 +58,8 @@ def save_to_SQLite(key, ID):
         CREATE TABLE reviews(
         author_id INTEGER, 
         movie_id INTEGER,
-        content TEXT);
+        content TEXT
+        rating  INTEGER);
                
         CREATE TABLE author(
         id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -78,5 +79,5 @@ def save_to_SQLite(key, ID):
     for review in js_review["review"]:
         cursor.execute("INSERT OR IGNORE INTO author(name) VALUES(?)", (review["author"],))
         author_id = cursor.lastrowid
-        cursor.execute("INSERT INTO reviews(author_id, movie_id, content) VALUE(?,?,?)",
-                       (author_id, movie_id, review["content"]))
+        cursor.execute("INSERT INTO reviews(author_id, movie_id, content, ratings) VALUE(?,?,?)",
+                       (author_id, movie_id, review["content"], review["rating"]))
